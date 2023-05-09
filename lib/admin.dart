@@ -92,7 +92,11 @@ class _AdminPageState extends State<AdminPage> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Mot de passe'),
+                decoration: InputDecoration(labelText: 'Mot de passe' ,
+                 border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {

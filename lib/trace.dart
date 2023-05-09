@@ -34,7 +34,8 @@ class _trace1State extends State<trace1> {
 
           crossAxisCount: 1, // 1 colonne pour une disposition en dessous
           childAspectRatio: 2, // rapport largeur-hauteur pour chaque élément
-          
+          crossAxisSpacing: 20.0,
+          mainAxisSpacing: 20.0,
           children: <Widget>[
             Card(
               elevation: 5.0,
