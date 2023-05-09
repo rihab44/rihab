@@ -2,7 +2,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'listutilisateur.dart';
 
+
 class AdminPage extends StatefulWidget {
+
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -34,15 +36,29 @@ class _AdminPageState extends State<AdminPage> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        title: Text('Connexion'),
+        title: Text('page admin'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
+         child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 50.0,
+              horizontal: 30.0,
+            ),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(
+                  'connectez-vous en tant que administrateur',
+                  style: TextStyle(
+        backgroundColor: Colors.purple,
+
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
@@ -53,6 +69,9 @@ class _AdminPageState extends State<AdminPage> {
                   return null;
                 },
               ),
+              SizedBox(
+                  height: 20.0,
+                ),
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Mot de passe'),
@@ -64,16 +83,23 @@ class _AdminPageState extends State<AdminPage> {
                   return null;
                 },
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 174, 45, 196),
+              SizedBox(
+                height: 30.0,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 30.0,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 174, 45, 196),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _login();
+                    }
+                  },
+                  child: Text('Se connecter'),
                 ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _login();
-                  }
-                },
-                child: Text('Se connecter'),
               ),
               if (_errorMessage.isNotEmpty)
                 Padding(
@@ -87,6 +113,6 @@ class _AdminPageState extends State<AdminPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

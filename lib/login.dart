@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 50.0,
+                  height: 30.0,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 244, 235, 246),

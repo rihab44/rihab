@@ -59,66 +59,95 @@ class page1 extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(30.0),
-        child: GridView.count(crossAxisCount: 2, children: <Widget>[
-          Card(
-            margin: EdgeInsets.all(5.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProduitListView()),
-                );
-              },
-              splashColor: Colors.purple,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(
-                      Icons.source,
-                      size: 60.0,
-                      color: Colors.deepPurple,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+  child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          children: <Widget>[
+            SizedBox(
+              height: 150,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                margin: EdgeInsets.only(bottom: 20),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProduitListView(),
+                      ),
+                    );
+                  },
+                  splashColor: Colors.purple,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(
+                          Icons.source,
+                          size: 60.0,
+                          color: Colors.deepPurple,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "gérer les produits",
+                          style: new TextStyle(fontSize: 17.0),
+                        )
+                      ],
                     ),
-                    Text(
-                      "voir le stock ",
-                      style: new TextStyle(fontSize: 17.0),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(5.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => commande1()),
-                );
-              },
-              splashColor: Colors.purple,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(
-                      Icons.add_shopping_cart,
-                      size: 60.0,
-                      color: Colors.deepPurple,
+            SizedBox(
+              height: 150,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                margin: EdgeInsets.only(bottom: 20),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => commande1(),
+                      ),
+                    );
+                  },
+                  splashColor: Colors.purple,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(
+                          Icons.add_shopping_cart,
+                          size: 60.0,
+                          color: Colors.deepPurple,
+                        ),
+                        Text(
+                          "  passer un commande ",
+                          style: new TextStyle(fontSize: 17.0),
+                        )
+                      ],
                     ),
-                    Text(
-                      "  passer un commande ",
-                      style: new TextStyle(fontSize: 17.0),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(5.0),
+          SizedBox(
+              height: 150,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                margin: EdgeInsets.only(bottom: 20),
             child: InkWell(
               onTap: () {
                 Navigator.push(
@@ -137,16 +166,21 @@ class page1 extends StatelessWidget {
                       color: Colors.deepPurple,
                     ),
                     Text(
-                      "voir la tracabilité des produitt ",
+                      "gérer la tracabilité des produits ",
                       style: new TextStyle(fontSize: 17.0),
                     )
                   ],
                 ),
               ),
             ),
-          ),
-          Card(
-            margin: EdgeInsets.all(5.0),
+          ),),
+           SizedBox(
+              height: 150,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+margin: EdgeInsets.only(bottom: 20),
             child: InkWell(
               onTap: () {
                 Navigator.push(
@@ -173,7 +207,7 @@ class page1 extends StatelessWidget {
               ),
             ),
           ),
-        ]),
+        )]),
       ),
     );
   }
