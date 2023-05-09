@@ -125,7 +125,7 @@ class _MyDataTable1State extends State<MyDataTable1> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Nom utilisateur: ${user.nom}',
+                                    'Nom et prénom : ${user.nom}',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class _MyDataTable1State extends State<MyDataTable1> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                     content:
-                                                        Text('traçe supprimé')),
+                                                        Text('utilisateur supprimé')),
                                               );
                                               setState(() {
                                                 _userFuture =
@@ -174,7 +174,7 @@ class _MyDataTable1State extends State<MyDataTable1> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                     content: Text(
-                                                        'Impossible de supprimer le traçe')),
+                                                        'Impossible de supprimer utilisateur')),
                                               );
                                             }
                                           },

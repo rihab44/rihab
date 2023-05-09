@@ -74,7 +74,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       backgroundColor: Color.fromARGB(255, 243, 240, 244),
 
       appBar: AppBar(
-        title: Text('ajoutproduit'),
+        title: Text('ajoutper un roduit'),
         backgroundColor: Colors.purple,
         elevation: 0,
       ),
@@ -147,7 +147,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 controller: _stockinitialController,
                 decoration: InputDecoration(
-                  labelText: 'stockinitial',
+                  labelText: 'stock initial',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -162,7 +162,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                TextFormField(
                 controller: _stocktomponController,
                 decoration: InputDecoration(
-                  labelText: 'stocktompon',
+                  labelText: 'stock tompon',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {

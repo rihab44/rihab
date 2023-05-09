@@ -1,10 +1,8 @@
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'listutilisateur.dart';
 
-
 class AdminPage extends StatefulWidget {
-
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -15,7 +13,7 @@ class _AdminPageState extends State<AdminPage> {
   final _passwordController = TextEditingController();
   String _errorMessage = '';
 
-  void _login() async {
+  Future<void> _login() async {
     final response = await http.post(
       Uri.parse('http://localhost:3000/admin'),
       headers: {'email': _emailController.text},
@@ -33,35 +31,55 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        title: Text('page admin'),
+        title: Text(
+          'Page Admin',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
-      body: Center(
-         child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 50.0,
-              horizontal: 30.0,
-            ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 30.0,
+        ),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Image.asset(
+                'assets/admin.png',
+                height: 150.0,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
               Text(
-                  'connectez-vous en tant que administrateur',
-                  style: TextStyle(
-        backgroundColor: Colors.purple,
-
-                  ),
+                'Connectez-vous en tant que administrateur',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Veuillez entrer votre adresse email';
@@ -70,8 +88,8 @@ class _AdminPageState extends State<AdminPage> {
                 },
               ),
               SizedBox(
-                  height: 20.0,
-                ),
+                height: 30.0,
+              ),
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Mot de passe'),
@@ -113,6 +131,6 @@ class _AdminPageState extends State<AdminPage> {
           ),
         ),
       ),
-    ));
+    );
   }
 }

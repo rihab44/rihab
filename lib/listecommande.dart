@@ -192,7 +192,7 @@ class _ListCommandeState extends State<ListCommande> {
                                             .showSnackBar(
                                           SnackBar(
                                               content:
-                                                  Text('Produit supprimé')),
+                                                  Text('commande supprimé')),
                                         );
                                         setState(() {
                                           _commandesFuture =
@@ -203,7 +203,7 @@ class _ListCommandeState extends State<ListCommande> {
                                             .showSnackBar(
                                           SnackBar(
                                               content: Text(
-                                                  'Impossible de supprimer le produit')),
+                                                  'Impossible de supprimer la commande')),
                                         );
                                       }
                                     },

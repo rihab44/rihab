@@ -64,7 +64,7 @@ class _ajoutState extends State<ajout> {
       backgroundColor: Color.fromARGB(255, 243, 240, 244),
 
         appBar: AppBar(
-          title: Text('ajout utulisateur'),
+          title: Text('ajouter un utulisateur'),
           backgroundColor: Color.fromARGB(255, 174, 45, 196),
           elevation: 0,
         ),
@@ -75,7 +75,7 @@ class _ajoutState extends State<ajout> {
                 child: Column(children: [
                   TextFormField(
                     controller: _nomController,
-                    decoration: InputDecoration(labelText: 'nom'),
+                    decoration: InputDecoration(labelText: 'nom et prénom'),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'donner nom de utulisateur';
@@ -101,7 +101,7 @@ class _ajoutState extends State<ajout> {
                   ),
                   TextFormField(
                     controller: _numeroController,
-                    decoration: InputDecoration(labelText: 'Numéro'),
+                    decoration: InputDecoration(labelText: 'Numéro de téléphone' ),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'donner numero de utulisateur';

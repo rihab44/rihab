@@ -282,13 +282,20 @@ class _ProduitListViewState extends State<ProduitListView> {
               ],
             ),
             actions: <Widget>[
+              
               ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 174, 45, 196),
+                ),
                 child: Text('Annuler'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 174, 45, 196),
+                ),
                 child: Text('Modifier'),
                 onPressed: () async {
                   Map<String, dynamic> produitToUpdate = {
@@ -305,11 +312,11 @@ class _ProduitListViewState extends State<ProduitListView> {
                   print('Update status: $status');
                   if (status) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Utilisateur mis à jour')));
+                        SnackBar(content: Text('produit modifié')));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
-                            'Impossible de mettre à jour l\'utilisateur')));
+                            'Impossible de mettre à jour le produit')));
                   }
                   Navigator.of(context).pop();
                 },
