@@ -97,7 +97,10 @@ class page1 extends StatelessWidget {
                         SizedBox(height: 10),
                         Text(
                           "gérer les produits",
-                          style: new TextStyle(fontSize: 17.0),
+                          style: new TextStyle(fontSize: 17.0,
+                                                  fontWeight: FontWeight.bold,
+
+                          ),
                         )
                       ],
                     ),
@@ -133,7 +136,10 @@ class page1 extends StatelessWidget {
                         ),
                         Text(
                           "  passer un commande ",
-                          style: new TextStyle(fontSize: 17.0),
+                          style: new TextStyle(fontSize: 17.0,
+                           fontWeight: FontWeight.bold,
+
+                          ),
                         )
                       ],
                     ),
@@ -167,7 +173,11 @@ class page1 extends StatelessWidget {
                     ),
                     Text(
                       "gérer la tracabilité des produits ",
-                      style: new TextStyle(fontSize: 17.0),
+                      style: new TextStyle(fontSize: 17.0
+                                              ,fontWeight: FontWeight.bold,
+
+                      )
+                      ,
                     )
                   ],
                 ),
@@ -200,7 +210,10 @@ margin: EdgeInsets.only(bottom: 20),
                     ),
                     Text(
                       "  liste des commandes ",
-                      style: new TextStyle(fontSize: 17.0),
+                      style: new TextStyle(fontSize: 17.0,
+                                              fontWeight: FontWeight.bold,
+
+                      ),
                     )
                   ],
                 ),

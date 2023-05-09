@@ -62,8 +62,10 @@ class _trace1State extends State<trace1> {
                       ),
                       Text(
                         "Les câbles",
-                        style: TextStyle(fontSize: 14.0),
-                      )
+                        style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        ))
                     ],
                   ),
                 ),
@@ -95,7 +97,10 @@ class _trace1State extends State<trace1> {
                       ),
                       Text(
                         "Les accessoires",
-                        style: TextStyle(fontSize: 14.0),
+                          style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        )
                       )
                     ],
                   ),
