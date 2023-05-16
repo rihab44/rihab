@@ -10,7 +10,7 @@ class cable {
   late int code;
   late int stockinitial;
   late int stocktompon;
-  late int? unitedemesure;
+  late String unitedemesure;
   bool selected = false;
 
   cable({
@@ -30,8 +30,7 @@ class cable {
     code = json['code'];
     stockinitial = json['stockinitial'];
     stocktompon = json['stocktompon'];
-    unitedemesure =
-        json['unitedemesure'] != null ? json['unitedemesure'] as int : 0;
+    unitedemesure = json['unitedemesure'];
   }
 }
 
@@ -68,7 +67,7 @@ class _cableproduct1State extends State<cableproduct1> {
   }
 
   Future<List<cable>> fetchcables() async {
-    const String apiUrl = 'http://localhost:8000/cable';
+    const String apiUrl = 'http://localhost:3000/cable';
     var response = await http.get(
       Uri.parse(apiUrl),
       headers: {
@@ -97,7 +96,7 @@ class _cableproduct1State extends State<cableproduct1> {
         context,
         MaterialPageRoute(
             builder: (context) => ajouttrace(
-                  nomProduitCommande: _selectedcables[0].nom,
+                  nomProduit: _selectedcables[0].nom,
                 )),
       );
     } else {
@@ -113,10 +112,10 @@ class _cableproduct1State extends State<cableproduct1> {
         elevation: 0,
         backgroundColor: Colors.purple,
         title: Text(
-          'traçabilité du produit',
+          'cables',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 30,
+            fontSize: 25,
           ),
         ),
       ),
@@ -140,8 +139,10 @@ class _cableproduct1State extends State<cableproduct1> {
                 );
                 _oncableSelected(cables![index]);
               },
-              child: Padding(
-                padding: const EdgeInsets.all(16),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 32.0, bottom: 32.0, left: 16.0),
+               
                 child: Row(
                   children: [
                     Checkbox(

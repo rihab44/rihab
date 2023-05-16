@@ -9,7 +9,7 @@ class trace {
   String adressedetraveaux;
   String nomentreprise;
   double numerodemarche;
-  String augentdesuivie;
+  String agentdesuivie;
 
   trace(
     this.nomproduit,
@@ -17,7 +17,7 @@ class trace {
     this.adressedetraveaux,
     this.nomentreprise,
     this.numerodemarche,
-    this.augentdesuivie,
+    this.agentdesuivie,
   );
   Map<String, dynamic> toJson() {
     return {
@@ -26,7 +26,7 @@ class trace {
       'adressedetraveaux': this.adressedetraveaux,
       'nomentreprise': this.nomentreprise,
       'numerodemarche': this.numerodemarche,
-      'augentdesuivie': this.augentdesuivie,
+      'agentdesuivie': this.agentdesuivie,
     };
   }
 }
@@ -55,10 +55,10 @@ class service {
 }
 
 class ajouttrace extends StatefulWidget {
-  final String nomProduitCommande;
+  final String nomProduit;
 
   ajouttrace({
-    required this.nomProduitCommande,
+    required this.nomProduit,
   });
   @override
   State<ajouttrace> createState() => _ajouttraceState();
@@ -72,7 +72,7 @@ class _ajouttraceState extends State<ajouttrace> {
   var _adressedetraveauxController = TextEditingController();
   var _nomentrepriseController = TextEditingController();
   var _numerodemarcheController = TextEditingController();
-  var _augentdesuivieController = TextEditingController();
+  var _agentdesuivieController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +80,13 @@ class _ajouttraceState extends State<ajouttrace> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        title: Text("traçabilité des produits"),
+        title: Text(
+          'Traçabilité des produits',
+          style: TextStyle(
+            color: Color.fromARGB(255, 254, 251, 251),
+            fontSize: 25,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -91,7 +97,7 @@ class _ajouttraceState extends State<ajouttrace> {
               Text('Nom du produit :',
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(width: 10.0),
-              Text(widget.nomProduitCommande, style: TextStyle(fontSize: 18.0)),
+              Text(widget.nomProduit, style: TextStyle(fontSize: 18.0)),
               SizedBox(
                 height: 10.0,
               ),
@@ -156,13 +162,13 @@ class _ajouttraceState extends State<ajouttrace> {
                 height: 10.0,
               ),
               TextFormField(
-                controller: _augentdesuivieController,
+                controller: _agentdesuivieController,
                 decoration: InputDecoration(
-                  labelText: 'augent de suivie',
+                  labelText: 'agent de suivie',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'donner augent de suivie';
+                    return 'donner agent de suivie';
                   }
                   return null;
                 },
@@ -176,21 +182,21 @@ class _ajouttraceState extends State<ajouttrace> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          var nomproduit = _nomproduitController.text;
+                          var nomproduit = widget.nomProduit;
                           var ordreservice = _ordreserviceController.text;
                           var adressedetraveaux =
                               _adressedetraveauxController.text;
                           var nomentreprise = _nomentrepriseController.text;
                           var numerodemarche =
                               double.parse(_numerodemarcheController.text);
-                          var augentdesuivie = _augentdesuivieController.text;
+                          var agentdesuivie = _agentdesuivieController.text;
                           var success = service.addtrace(trace(
                             nomproduit,
                             ordreservice,
                             adressedetraveaux,
                             nomentreprise,
                             numerodemarche,
-                            augentdesuivie,
+                            agentdesuivie,
                           ).toJson());
                           print(jsonEncode(trace(
                                   nomproduit,
@@ -198,7 +204,7 @@ class _ajouttraceState extends State<ajouttrace> {
                                   adressedetraveaux,
                                   nomentreprise,
                                   numerodemarche,
-                                  augentdesuivie)
+                                  agentdesuivie)
                               .toJson()));
 
                           Navigator.push(

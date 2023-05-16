@@ -27,8 +27,8 @@ class commande {
       'nomproduit': this.nomproduit,
       'typeprojet': this.typeprojet,
       'prixunitaire': this.prixunitaire,
-      'dateestime': this.dateestime,
-      'quantite': this.quantite,
+      'dateestimé': this.dateestime,
+      'quantité': this.quantite,
       'nomutilisateur': this.nomutilisateur,
       'prix': this.prix,
     };
@@ -196,31 +196,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           var nomproduit = widget.nomProduitCommande;
-
                           var typeprojet = widget.typeprojetCommande;
                           var prixunitaire = widget.prixproduit;
                           var dateestime = _dateestimeController.text;
                           var nomutilisateur = _nomutilisateurController.text;
                           var quantite = int.parse(_quantiteeController.text);
                           var prix = _prix;
-                          var success = productservice.addProduct(commande(
-                            nomproduit,
-                            typeprojet,
-                            prixunitaire,
-                            dateestime,
-                            quantite,
-                            nomutilisateur,
-                            prix,
-                          ).toJson());
-                          print(jsonEncode(commande(
-                                  nomproduit,
-                                  typeprojet,
-                                  prixunitaire,
-                                  dateestime,
-                                  quantite,
-                                  nomutilisateur,
-                                  prix)
-                              .toJson()));
+                          var productData = commande(
+  nomproduit,
+  typeprojet,
+  prixunitaire,
+  dateestime,
+  quantite,
+  nomutilisateur,
+  prix,
+).toJson();
+print('Product data: $productData');
+var success = productservice.addProduct(productData);
+
 
                           Navigator.push(
                             context,

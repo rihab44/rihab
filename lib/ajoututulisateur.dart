@@ -9,14 +9,16 @@ class user {
   String email;
   double numero;
   String password;
+  String role;
 
-  user(this.nom, this.email, this.numero, this.password);
+  user(this.nom, this.email, this.numero, this.password, this.role);
   Map<String, dynamic> toJson() {
     return {
       'nom': this.nom,
       'email': this.email,
       'numero': this.numero,
       'password': this.password,
+      'role': this.role,
     };
   }
 }
@@ -54,15 +56,16 @@ class ajout extends StatefulWidget {
 class _ajoutState extends State<ajout> {
   var _formKey = GlobalKey<FormState>();
   var _emailController = TextEditingController();
+
   var _nomController = TextEditingController();
   var _passwordController = TextEditingController();
   var _numeroController = TextEditingController();
+  var _roleControlller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 240, 244),
-
+        backgroundColor: Color.fromARGB(255, 243, 240, 244),
         appBar: AppBar(
           title: Text('ajouter un utulisateur'),
           backgroundColor: Color.fromARGB(255, 174, 45, 196),
@@ -75,7 +78,7 @@ class _ajoutState extends State<ajout> {
                 child: Column(children: [
                   TextFormField(
                     controller: _nomController,
-                    decoration: InputDecoration(labelText: 'nom et prénom'),
+                    decoration: InputDecoration(labelText: 'Nom et prénom'),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'donner nom de utulisateur';
@@ -101,7 +104,8 @@ class _ajoutState extends State<ajout> {
                   ),
                   TextFormField(
                     controller: _numeroController,
-                    decoration: InputDecoration(labelText: 'Numéro de téléphone' ),
+                    decoration:
+                        InputDecoration(labelText: 'Numéro de téléphone'),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'donner numero de utulisateur';
@@ -114,10 +118,20 @@ class _ajoutState extends State<ajout> {
                   ),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: InputDecoration(labelText: 'motdepasse'),
+                    decoration: InputDecoration(labelText: 'mot de passe'),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'donner mot de passe  utulisateur';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _roleControlller,
+                    decoration: InputDecoration(labelText: 'role'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'donner le role utulisateur';
                       }
                       return null;
                     },
@@ -135,10 +149,11 @@ class _ajoutState extends State<ajout> {
                           var email = _emailController.text;
                           var numero = double.parse(_numeroController.text);
                           var password = _passwordController.text;
+                          var role = _roleControlller.text;
                           var success = UserService.adduser(
-                              user(nom, email, numero, password).toJson());
+                              user(nom, email, numero, password,role).toJson());
                           print(jsonEncode(
-                              user(nom, email, numero, password).toJson()));
+                              user(nom, email, numero, password,role).toJson()));
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => page1()),

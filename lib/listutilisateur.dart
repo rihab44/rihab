@@ -12,12 +12,13 @@ class User {
   User(
     this.id, {
     required this.nom,
-    required this.email,
+      required this.email,
     required this.numero,
   });
   User.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     nom = json['nom'];
+   
     email = json['email'];
     numero = json['numero'];
   }
@@ -125,12 +126,13 @@ class _MyDataTable1State extends State<MyDataTable1> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Nom et prénom : ${user.nom}',
+                                    'Nom et Prénom : ${user.nom}',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                  
                                   SizedBox(height: 8),
                                   Text("Numero de téléphone : ${user.numero}"),
                                   SizedBox(height: 8),
@@ -162,8 +164,8 @@ class _MyDataTable1State extends State<MyDataTable1> {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
-                                                    content:
-                                                        Text('utilisateur supprimé')),
+                                                    content: Text(
+                                                        'utilisateur supprimé')),
                                               );
                                               setState(() {
                                                 _userFuture =
@@ -218,8 +220,9 @@ class _MyDataTable1State extends State<MyDataTable1> {
               children: <Widget>[
                 TextField(
                   controller: nomController,
-                  decoration: InputDecoration(hintText: 'Nom'),
+                  decoration: InputDecoration(hintText: 'Nom et prenom'),
                 ),
+                 
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(hintText: 'Email'),
@@ -249,6 +252,7 @@ class _MyDataTable1State extends State<MyDataTable1> {
                 onPressed: () async {
                   Map<String, dynamic> userToUpdate = {
                     'nom': nomController.text,
+                    
                     'email': emailController.text,
                     'numero': int.parse(numeroController.text),
                   };

@@ -14,13 +14,13 @@ class _trace1State extends State<trace1> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.purple,
-        title: Text(
-          'Traçabilité des produits',
-          style: TextStyle(
-            color: Color.fromARGB(255, 254, 251, 251),
-            fontSize: 30,
-          ),
-        ),
+    title: Text(
+  'Traçabilité des produits',
+  style: TextStyle(
+    color: Color.fromARGB(255, 254, 251, 251),
+    fontSize: 25,
+  ),
+),
       ),
       body: Container(
         decoration: BoxDecoration(

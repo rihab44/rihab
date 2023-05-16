@@ -10,7 +10,7 @@ class accessoire {
   late int code;
   late int stockinitial;
   late int stocktompon;
-  late int? unitedemesure;
+  late String unitedemesure;
   bool selected = false;
 
   accessoire({
@@ -30,8 +30,7 @@ class accessoire {
     code = json['code'];
     stockinitial = json['stockinitial'];
     stocktompon = json['stocktompon'];
-    unitedemesure =
-        json['unitedemesure'] != null ? json['unitedemesure'] as int : 0;
+    unitedemesure = json['unitedemesure'];
   }
 }
 
@@ -68,7 +67,7 @@ class _accessoireproduct1State extends State<accessoireproduct1> {
   }
 
   Future<List<accessoire>> fetchaccessoires() async {
-    const String apiUrl = 'http://localhost:8000/accessoire';
+    const String apiUrl = 'http://localhost:3000/accessoire';
     var response = await http.get(
       Uri.parse(apiUrl),
       headers: {
@@ -98,7 +97,7 @@ class _accessoireproduct1State extends State<accessoireproduct1> {
         context,
         MaterialPageRoute(
             builder: (context) => ajouttrace(
-                  nomProduitCommande: _selectedaccessoires[0].nom,
+                  nomProduit: _selectedaccessoires[0].nom,
                 )),
       );
     } else {
@@ -109,15 +108,16 @@ class _accessoireproduct1State extends State<accessoireproduct1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 240, 244),
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.purple,
         title: Text(
-          'ajout commande',
+          'accessoires',
           style: TextStyle(
             color: Color.fromARGB(255, 254, 251, 251),
-            fontSize: 30,
+            fontSize: 25,
           ),
         ),
       ),

@@ -10,7 +10,7 @@ class Produit {
   double code;
   double stockinitial;
   double stocktompon;
-  double unitedemesure;
+  String unitedemesure;
 
   Produit(this.nom, this.categorie, this.prix, this.code, this.stockinitial, this.stocktompon,
       this.unitedemesure);
@@ -28,7 +28,7 @@ class Produit {
 }
 
 class productservice {
-  static const String apiUrl = 'http://localhost:8000/addproduct';
+  static const String apiUrl = 'http://localhost:3000/addproduct';
 
   static Future<http.Response> addProduct(Map<String, dynamic> produit) async {
     var response = await http.post(
@@ -74,7 +74,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       backgroundColor: Color.fromARGB(255, 243, 240, 244),
 
       appBar: AppBar(
-        title: Text('ajoutper un roduit'),
+        title: Text('ajoutper un poduit'),
         backgroundColor: Colors.purple,
         elevation: 0,
       ),
@@ -87,7 +87,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 controller: _nomController,
                 decoration: InputDecoration(
-                  labelText: 'nom',
+                  labelText: 'Nom',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -102,7 +102,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 controller: _categorieController,
                 decoration: InputDecoration(
-                  labelText: 'categorie',
+                  labelText: 'Categorie',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -117,7 +117,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 controller: _prixController,
                 decoration: InputDecoration(
-                  labelText: 'prix',
+                  labelText: 'prix unitaire',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -162,7 +162,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                TextFormField(
                 controller: _stocktomponController,
                 decoration: InputDecoration(
-                  labelText: 'stock tompon',
+                  labelText: 'stock tampon',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -202,7 +202,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           var stockinitial = double.parse(_stockinitialController.text);
                            var stocktompon = double.parse(_stocktomponController.text);
                           var unitedemesure =
-                              double.parse(_unitedemesureController.text);
+                              _unitedemesureController.text;
                           var success = productservice.addProduct(Produit(
                                   nom, categorie, prix, code, stockinitial, stocktompon , unitedemesure)
                               .toJson());

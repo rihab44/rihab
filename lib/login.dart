@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -87,11 +86,16 @@ class _LoginPageState extends State<LoginPage> {
                         Uri.parse('http://localhost:3000/authenticate'),
                         body: {'email': email, 'password': password},
                       );
-                      if (response.statusCode == 200) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => page1()),
-                        );
+                   if (response.statusCode == 200) {
+  final responseData = jsonDecode(response.body);
+  
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => page1()),
+  );
+
+
+
                       } else {
                         showDialog(
                           context: context,
@@ -128,3 +132,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+

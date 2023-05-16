@@ -31,12 +31,11 @@ class _commande1State extends State<commande1> {
             fit: BoxFit.cover,
           ),
         ),
-        child: GridView.count(
+      child: GridView.count(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
 
-          crossAxisCount: 1,
-             childAspectRatio: 2, // rapport largeur-hauteur pour chaque élément
-
+          crossAxisCount: 1, // 1 colonne pour une disposition en dessous
+          childAspectRatio: 2, // rapport largeur-hauteur pour chaque élément
           crossAxisSpacing: 20.0,
           mainAxisSpacing: 20.0,
           children: <Widget>[
@@ -45,6 +44,7 @@ class _commande1State extends State<commande1> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
+              margin: EdgeInsets.all(5.0),
               child: InkWell(
                 onTap: () {
                   Navigator.push(

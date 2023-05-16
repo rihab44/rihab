@@ -250,7 +250,7 @@ class _ListCommandeState extends State<ListCommande> {
         TextEditingController(text: Commande.nomutilisateur);
     TextEditingController dateestimeeController =
         TextEditingController(text: Commande.dateestime);
-    TextEditingController quatiteController =
+    TextEditingController quantiteController =
         TextEditingController(text: Commande.quantite.toString());
     TextEditingController prixController =
         TextEditingController(text: Commande.prix.toString());
@@ -284,6 +284,11 @@ class _ListCommandeState extends State<ListCommande> {
                   controller: dateestimeeController,
                   decoration: InputDecoration(hintText: 'la date estimée'),
                 ),
+                 TextField(
+                  controller: quantiteController,
+                  decoration: InputDecoration(hintText: 'la quantité'),
+                ),
+                
               ],
             ),
             actions: <Widget>[
@@ -306,7 +311,7 @@ class _ListCommandeState extends State<ListCommande> {
                     'nomproduit': nomproduitController.text,
                     'typeprojet': typeprojetController.text,
                     'prixunitaire': int.parse(prixunitaireController.text),
-                    'quantité': int.parse(quatiteController.text),
+                    'quantité': int.parse(quantiteController.text),
                     'prix': int.parse(prixController.text),
                     'nomputilisateur': nomutilisateurController.text,
                     'dateestimee': dateestimeeController.text,

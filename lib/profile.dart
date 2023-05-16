@@ -1,122 +1,101 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class User {
-  late String id;
-  late String nom;
-  late String email;
-  late int numero;
-
-  User(
-    this.id, {
-    required this.nom,
-    required this.email,
-    required this.numero,
-  });
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    nom = json['nom'];
-    email = json['email'];
-    numero = json['numero'];
-  }
-}
-
-class APIService4 {
-  Future<User> getprofile(String id) async {
-    String apiUrl = 'http://localhost:3000/$id';
-    var response = await http.get(
-      Uri.parse(apiUrl),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      var jsonData = json.decode(response.body);
-      User user = User.fromJson(jsonData);
-      return user;
-    } else {
-      throw Exception('Impossible de récupérer les données.');
-    }
-  }
-}
-
-class ProfilePage extends StatefulWidget {
-  ProfilePage({
-    Key? key,
-  }) : super(key: key);
-
+class UserProfilePage extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _UserProfilePageState createState() => _UserProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  String? userId;
-  User? user;
+class _UserProfilePageState extends State<UserProfilePage> {
+  late Future<Map<String, dynamic>> _userProfile;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserId();
+    _userProfile = _fetchUserProfile();
   }
 
-  Future<void> _fetchUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userId');
-    _fetchUser();
-  }
+  Future<Map<String, dynamic>> _fetchUserProfile() async {
+    final response = await http.get(Uri.parse('http://localhost:3000/user/645fa2714c0aa6a190fbc26b')); // Remplacez "your-backend-api" par l'URL de votre API backend et "123" par l'ID de l'utilisateur
 
-  Future<void> _fetchUser() async {
-    try {
-      var apiService = APIService4();
-      var user = await apiService.getprofile(userId!);
-      setState(() {
-        this.user = user;
-      });
-    } catch (e) {
-      print(e.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to fetch user profile');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (user == null) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Profil utilisateur'),
-        ),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 243, 240, 244),
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        elevation: 0,
+        title: Text('Profil'),
+      ),
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: _userProfile,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            final userProfile = snapshot.data!;
+            return Column(
               children: [
-                Text(
-                  'Nom utilisateur: ${user!.nom}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.purple,
+                    ),
                   ),
                 ),
-                SizedBox(height: 8),
-                Text("Numero de téléphone : ${user!.numero}"),
-                SizedBox(height: 8),
-                Text("Email: ${user!.email}"),
+                SizedBox(height: 20),
+                Text(
+                  'Nom de l\'utilisateur: ${userProfile['nom']}',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Numéro de téléphone: ${userProfile['numero']}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Adresse e-mail: ${userProfile['email']}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 10),
+               
+ 
+                Text(
+                  'Mot de passe:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                
+                 TextField(
+                  enabled: false,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: '••••••••••',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+  
               ],
-            ),
-          ),
-        ),
-      );
-    }
+            );
+          }
+        },
+      ),
+    );
   }
 }

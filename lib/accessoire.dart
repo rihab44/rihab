@@ -10,7 +10,7 @@ class accessoire {
   late int code;
   late int stockinitial;
   late int stocktompon;
-  late int? unitedemesure;
+  late String unitedemesure;
   bool selected = false;
 
   accessoire({
@@ -30,8 +30,7 @@ class accessoire {
     code = json['code'];
     stockinitial = json['stockinitial'];
     stocktompon = json['stocktompon'];
-    unitedemesure =
-        json['unitedemesure'] != null ? json['unitedemesure'] as int : 0;
+    unitedemesure = json['unitedemesure'];
   }
 }
 
@@ -55,20 +54,20 @@ class _accessoireproductState extends State<accessoireproduct> {
   ];
   String? typeDeProjetSelectionne;
 
-
- void _onaccessoireSelected(accessoire accessoires) {
-  setState(() {
-    accessoires.selected = !accessoires.selected;
-    if (accessoires.selected) {
-      _selectedaccessoires.add(accessoires);
-      prixselectionne = accessoires.prix; // stocker le prix de l'accessoire sélectionné
-    } else {
-      _selectedaccessoires.remove(accessoires);
-      prixselectionne = 0; // effacer le prix si l'accessoire est désélectionné
-    }
-  });
-}
-
+  void _onaccessoireSelected(accessoire accessoires) {
+    setState(() {
+      accessoires.selected = !accessoires.selected;
+      if (accessoires.selected) {
+        _selectedaccessoires.add(accessoires);
+        prixselectionne =
+            accessoires.prix; // stocker le prix de l'accessoire sélectionné
+      } else {
+        _selectedaccessoires.remove(accessoires);
+        prixselectionne =
+            0; // effacer le prix si l'accessoire est désélectionné
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -99,7 +98,7 @@ class _accessoireproductState extends State<accessoireproduct> {
   }
 
   Future<List<accessoire>> fetchaccessoires() async {
-    const String apiUrl = 'http://localhost:8000/accessoire';
+    const String apiUrl = 'http://localhost:3000/accessoire';
     var response = await http.get(
       Uri.parse(apiUrl),
       headers: {
@@ -134,16 +133,16 @@ class _accessoireproductState extends State<accessoireproduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 240, 244),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
 
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.purple,
         title: Text(
-          'ajout commande',
+          'ajouter une commande',
           style: TextStyle(
             color: Color.fromARGB(255, 254, 251, 251),
-            fontSize: 30,
+            fontSize: 25,
           ),
         ),
       ),
@@ -151,108 +150,106 @@ class _accessoireproductState extends State<accessoireproduct> {
         itemBuilder: (context, index) {
           return Card(
               margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-
               child: InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(accessoires?[index].nom ?? ""),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              'stock initial:${accessoires?[index].stockinitial ?? ""}',
-                              style: TextStyle(fontSize: 16),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(accessoires?[index].nom ?? ""),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'stock initial:${accessoires?[index].stockinitial ?? ""}',
+                                style: TextStyle(fontSize: 16),
                               ),
-                          Text(
-                              'stock tompon:${accessoires?[index].stocktompon ?? ""}',
-                              style: TextStyle(fontSize: 16),
+                              Text(
+                                'stock tompon:${accessoires?[index].stocktompon ?? ""}',
+                                style: TextStyle(fontSize: 16),
                               ),
-                          Text('prix:${accessoires?[index].prix ?? ""}'
-                                                 ,style: TextStyle(fontSize: 16),
-                                                 ),
-
-                        ],
+                              Text(
+                                'prix:${accessoires?[index].prix ?? ""}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                  _onaccessoireSelected(accessoires![index]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 32.0, bottom: 32.0, left: 16.0),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: accessoires![index].selected,
+                        onChanged: (bool? value) {
+                          _onaccessoireSelected(accessoires![index]);
+                        },
                       ),
-                    );
-                  });
-              _onaccessoireSelected(accessoires![index]);
-            },
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: accessoires![index].selected,
-                    onChanged: (bool? value) {
-                      _onaccessoireSelected(accessoires![index]);
-                    },
+                      Expanded(
+                        child: Text(
+                          accessoires![index].nom,
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Text(
-                      accessoires![index].nom,
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ));
+                ),
+              ));
         },
         itemCount: accessoires?.length ?? 0,
       ),
       floatingActionButton: FloatingActionButton(
-    onPressed: _onCommanderPressed,
-    backgroundColor: Colors.purple,
-    child: Icon(Icons.shopping_cart),
-  ),
+        onPressed: _onCommanderPressed,
+        backgroundColor: Colors.purple,
+        child: Icon(Icons.shopping_cart),
+      ),
     );
   }
+
   void typeprojetDialog() {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Sélectionner le type de projet"),
-        content: DropdownButtonFormField<String>(
-          value: typeDeProjetSelectionne,
-          onChanged: (value) {
-            setState(() {
-              typeDeProjetSelectionne = value;
-              Navigator.pop(context); // ferme la boîte de dialogue
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddProductScreen(
-                   nomProduitCommande: _selectedaccessoires[0].nom,
-            typeprojetCommande: typeDeProjetSelectionne!,
-                                prixproduit: prixselectionne, // transmettre le prix sélectionné
-
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Sélectionner le type de projet"),
+          content: DropdownButtonFormField<String>(
+            value: typeDeProjetSelectionne,
+            onChanged: (value) {
+              setState(() {
+                typeDeProjetSelectionne = value;
+                Navigator.pop(context); // ferme la boîte de dialogue
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddProductScreen(
+                      nomProduitCommande: _selectedaccessoires[0].nom,
+                      typeprojetCommande: typeDeProjetSelectionne!,
+                      prixproduit:
+                          prixselectionne, // transmettre le prix sélectionné
+                    ),
                   ),
-                ),
+                );
+              });
+            },
+            items: typesDeProjets.map((type) {
+              return DropdownMenuItem<String>(
+                value: type,
+                child: Text(type),
               );
-
-            });
-          },
-          items: typesDeProjets.map((type) {
-            return DropdownMenuItem<String>(
-              value: type,
-              child: Text(type),
-            );
-          }).toList(),
-          decoration: InputDecoration(
-            labelText: 'Type de projet',
-            border: OutlineInputBorder(),
+            }).toList(),
+            decoration: InputDecoration(
+              labelText: 'Type de projet',
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-      );
-    },
-  );
-}
-
+        );
+      },
+    );
+  }
 }

@@ -11,7 +11,7 @@ class trace {
   late String adressedetraveaux;
   late String nomentreprise;
   late int numerodemarche;
-  late String augentdesuivie;
+  late String agentdesuivie;
 
   trace(
     this.id, {
@@ -20,7 +20,7 @@ class trace {
     required this.adressedetraveaux,
     required this.nomentreprise,
     required this.numerodemarche,
-    required this.augentdesuivie,
+    required this.agentdesuivie,
   });
   trace.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -29,7 +29,7 @@ class trace {
     adressedetraveaux = json['adressedetraveaux'];
     nomentreprise = json['nomentreprise'];
     numerodemarche = json['numerodemarche'];
-    augentdesuivie = json['augentdesuivie'];
+    agentdesuivie = json['agentdesuivie'];
   }
 }
 
@@ -115,7 +115,14 @@ class _traceproduitState extends State<traceproduit> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0,
-        title: Text("traçabilité des produits"),
+        title: Text(
+  'Traçabilité des produits',
+  style: TextStyle(
+    color: Color.fromARGB(255, 254, 251, 251),
+    fontSize: 25,
+  ),
+),
+        
       ),
       body: FutureBuilder<List<trace>>(
           future: _tracesFuture,
@@ -144,7 +151,7 @@ class _traceproduitState extends State<traceproduit> {
                                   Text("ordre service: ${Trace.ordreservice}"),
                                   SizedBox(height: 8),
                                   Text(
-                                      "adresse de traveaux: ${Trace.adressedetraveaux}"),
+                                      "adresse de travaux: ${Trace.adressedetraveaux}"),
                                   SizedBox(height: 8),
                                   Text(
                                       "nom entreprise: ${Trace.nomentreprise}"),
@@ -153,7 +160,7 @@ class _traceproduitState extends State<traceproduit> {
                                       "numero de marché: ${Trace.numerodemarche}"),
                                   SizedBox(height: 8),
                                   Text(
-                                      "augent de suivie: ${Trace.augentdesuivie}"),
+                                      "agent de suivie: ${Trace.agentdesuivie}"),
                                   SizedBox(height: 16),
                                   Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -250,9 +257,10 @@ class _traceproduitState extends State<traceproduit> {
                   controller: ordreserviceController,
                   decoration: InputDecoration(hintText: 'ordre service'),
                 ),
+               
                 TextField(
-                  controller: nomentrepriseController,
-                  decoration: InputDecoration(hintText: 'nom entreprise'),
+                  controller: adressedetraveauxController,
+                  decoration: InputDecoration(hintText: 'adresse de traveaux'),
                 ),
                 TextField(
                   controller: numerodemarcheController,
@@ -284,6 +292,7 @@ class _traceproduitState extends State<traceproduit> {
                   Map<String, dynamic> tracetoupdate = {
                     'nomproduit': nomproduitController.text,
                     'ordreservice': ordreserviceController.text,
+                    'adresse de traveaux' : adressedetraveauxController.text,
                     'nomentreprise': nomentrepriseController.text,
                     'numerodemarche': int.parse(numerodemarcheController.text),
                     'augentdesuivie': augentdesuivieController.text,

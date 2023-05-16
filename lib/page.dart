@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1a/profile.dart';
 import 'login.dart';
 import 'produit.dart';
 import 'ajoututulisateur.dart';
@@ -25,19 +26,21 @@ class page1 extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+             
             ListTile(
-              leading: Icon(Icons.add),
-              title: Text('ajouter un utulisateur'),
+              leading: Icon(Icons.person),
+              title: Text('profile'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ajout()),
+                  MaterialPageRoute(builder: (context) => UserProfilePage()),
                 );
               },
             ),
+            
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('liste des utulisateurs'),
+              leading: Icon(Icons.source),
+              title: Text('gérer des utulisateurs'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -135,7 +138,7 @@ class page1 extends StatelessWidget {
                           color: Colors.deepPurple,
                         ),
                         Text(
-                          "  passer un commande ",
+                          "  passer une commande ",
                           style: new TextStyle(fontSize: 17.0,
                            fontWeight: FontWeight.bold,
 

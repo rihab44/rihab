@@ -11,7 +11,7 @@ class Produit {
   late int code;
   late int stockinitial;
   late int stocktompon;
-  late int unitedemesure;
+  late String unitedemesure;
 
   Produit(
     this.id, {
@@ -38,7 +38,7 @@ class Produit {
 
 class APIService {
   Future<List<Produit>> getProduit() async {
-    const String apiUrl = 'http://localhost:8000/products';
+    const String apiUrl = 'http://localhost:3000/products';
     var response = await http.get(
       Uri.parse(apiUrl),
       headers: {
@@ -62,7 +62,7 @@ class APIService {
 
   Future<bool> deleteProduit(String id) async {
     bool status = false;
-    var url = Uri.parse('http://localhost:8000/delete/$id');
+    var url = Uri.parse('http://localhost:3000/delete/$id');
 
     print('Sending delete request to $url');
     var response = await http.delete(
@@ -81,7 +81,7 @@ class APIService {
 
 Future<bool> updateProduit(Map<String, dynamic> Produit, String id) async {
   bool status = false;
-  var url = Uri.parse('http://localhost:8000/update/$id');
+  var url = Uri.parse('http://localhost:3000/update/$id');
 
   print('Sending update request to $url with data $Produit');
   var response = await http.post(
@@ -277,7 +277,7 @@ class _ProduitListViewState extends State<ProduitListView> {
                 TextField(
                   controller: unitedemesureController,
                   decoration: InputDecoration(hintText: 'unité de mesure'),
-                  keyboardType: TextInputType.number,
+                 
                 ),
               ],
             ),
@@ -305,7 +305,7 @@ class _ProduitListViewState extends State<ProduitListView> {
                     'prix': int.parse(prixController.text),
                     'stockinital': int.parse(stockinitialController.text),
                     'stocktompon': int.parse(stocktomponController.text),
-                    'unitédemesure': int.parse(unitedemesureController.text),
+                    'unitédemesure': unitedemesureController.text,
                   };
                   bool status =
                       await updateProduit(produitToUpdate, produit.id);
